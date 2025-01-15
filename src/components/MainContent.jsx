@@ -28,13 +28,13 @@ import React, { useState, useEffect } from 'react';
         <main className="main-content">
           <div className="mined-card">
             <div className="mined-header">
-              <span>Total $SWITCH mined</span>
+              <span>Total $TOKEN mined</span>
             </div>
             <div className="mined-amount">
               <span className="mined-value">{minedValue}</span>
             </div>
             <div className="mined-per-hour">
-              <span>$SWITCH per hour:</span>
+              <span>$TOKEN per hour:</span>
               <span>0.0313</span>
             </div>
           </div>
@@ -43,7 +43,7 @@ import React, { useState, useEffect } from 'react';
               <div className="claim-text">
                 <span>claim</span>
                 <span className="claimValue">{claimValue}</span>
-                <span>SWITCH</span>
+                <span>TOKEN</span>
               </div>
             </div>
             <div className="claim-info">
