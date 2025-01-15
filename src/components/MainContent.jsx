@@ -2,8 +2,34 @@ import React, { useState, useEffect } from 'react';
     import './MainContent.css';
 
     function MainContent() {
-      const [claimValue, setClaimValue] = useState(0.026);
-      const [minedValue, setMinedValue] = useState(0.02);
+      const [claimValue, setClaimValue] = useState(0.000);
+      const [minedValue, setMinedValue] = useState(0.01);
+      const [remainingTime, setRemainingTime] = useState('');
+
+      useEffect(() => {
+        const timeString = '06:00:00';
+        const [hours, minutes, seconds] = timeString.split(':').map(Number);
+        let totalSeconds = hours * 3600 + minutes * 60 + seconds;
+
+        const interval = setInterval(() => {
+          if (totalSeconds > 0) {
+            totalSeconds--;
+            const newHours = Math.floor(totalSeconds / 3600);
+            const newMinutes = Math.floor((totalSeconds % 3600) / 60);
+            const newSeconds = totalSeconds % 60;
+            setRemainingTime(
+              `${String(newHours).padStart(2, '0')}:${String(
+                newMinutes,
+              ).padStart(2, '0')}:${String(newSeconds).padStart(2, '0')}`,
+            );
+          } else {
+            clearInterval(interval);
+            setRemainingTime('Time Expired');
+          }
+        }, 1000);
+
+        return () => clearInterval(interval);
+      }, []);
 
       useEffect(() => {
         const interval = setInterval(() => {
@@ -45,9 +71,10 @@ import React, { useState, useEffect } from 'react';
                 <span className="claimValue">{claimValue}</span>
                 <span>TOKEN</span>
               </div>
+              <div className="claim-animation"></div>
             </div>
             <div className="claim-info">
-              <span>burn in 05:07:06 | claim from 0.01</span>
+              <span>burn in {remainingTime} | claim from 0.001</span>
             </div>
             <button className="auto-claim-button">Activate auto-claim</button>
           </div>
